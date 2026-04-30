@@ -1,4 +1,3 @@
-# platform/root-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/Ajaz3800/gitops-platform-repo
+    repoURL: git@github.com:Ajaz3800/gitops-platform-repo.git
     targetRevision: main
     path: platform
 
