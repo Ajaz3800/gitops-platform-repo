@@ -5,7 +5,7 @@ metadata:
   name: cert-manager
   namespace: argocd
 spec:
-  project: k8s-security
+  project: k8s-platform
   source:
     repoURL: https://charts.jetstack.io
     chart: cert-manager
