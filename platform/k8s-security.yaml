@@ -8,6 +8,7 @@ spec:
   description: Platform components (security)
 
   sourceRepos:
+    - git@github.com:Ajaz3800/gitops-platform-repo.git
     - https://kyverno.github.io/kyverno
     - https://falcosecurity.github.io/charts
 
