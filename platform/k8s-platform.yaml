@@ -9,6 +9,9 @@ spec:
 
   sourceRepos:
     - 'git@github.com:Ajaz3800/gitops-platform-repo.git'
+    - https://charts.external-secrets.io
+    - https://charts.jetstack.io
+    - https://kubernetes.github.io/ingress-nginx
 
   destinations:
     - namespace: external-secrets
