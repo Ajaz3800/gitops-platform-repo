@@ -4,7 +4,7 @@ metadata:
   name: infra-root
   namespace: argocd
 spec:
-  project: default
+  project: k8s-infra
   source:
     repoURL: git@github.com:Ajaz3800/gitops-platform-repo.git
     targetRevision: main
@@ -18,3 +18,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
