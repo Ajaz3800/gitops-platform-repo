@@ -8,9 +8,18 @@ spec:
   source:
     repoURL: https://charts.external-secrets.io
     chart: external-secrets
-    targetRevision: "2.4.0"
+    targetRevision: "2.4.1"
     helm:
       releaseName: external-secrets
+      parameters:
+        - name: installCRDs
+          value: "true"
+        - name: rbac.create
+          value: "true"
+        - name: certController.rbac.create
+          value: "true"
+        - name: webhook.rbac.create
+          value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: external-secrets
@@ -21,4 +30,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-      - Replace=true 
+      - RespectIgnoreDifferences=true
