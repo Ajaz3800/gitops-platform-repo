@@ -4,7 +4,7 @@ metadata:
   name: external-secrets
   namespace: argocd
 spec:
-  project: k8s-security
+  project: k8s-platform
   source:
     repoURL: https://charts.external-secrets.io
     chart: external-secrets
