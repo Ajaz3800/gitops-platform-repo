@@ -5,6 +5,7 @@ metadata:
   name: kyverno
   namespace: argocd
 spec:
+  project: k8s-security
   source:
     repoURL: https://kyverno.github.io/kyverno
     chart: kyverno
