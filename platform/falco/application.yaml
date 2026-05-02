@@ -5,6 +5,7 @@ metadata:
   name: falco
   namespace: argocd
 spec:
+  project: k8s-security
   source:
     repoURL: https://falcosecurity.github.io/charts
     chart: falco
