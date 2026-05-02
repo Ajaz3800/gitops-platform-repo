@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: k8s-observability
+  namespace: argocd
+
+spec:
+  description: Platform components (observability)
+
+  sourceRepos:
+    - 'git@github.com:Ajaz3800/gitops-platform-repo.git'
+  destinations:
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
