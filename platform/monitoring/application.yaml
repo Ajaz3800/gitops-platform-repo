@@ -5,6 +5,7 @@ metadata:
   name: monitoring
   namespace: argocd
 spec:
+  project: k8s-security
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
