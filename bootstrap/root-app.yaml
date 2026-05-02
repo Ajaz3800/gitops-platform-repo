@@ -9,6 +9,8 @@ spec:
     repoURL: git@github.com:Ajaz3800/gitops-platform-repo.git
     targetRevision: main
     path: platform
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
