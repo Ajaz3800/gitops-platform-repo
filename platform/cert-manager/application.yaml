@@ -13,6 +13,9 @@ spec:
     helm:
       values: |
         installCRDs: true
+        global:
+          leaderElection:
+            namespace: cert-manager
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
@@ -20,5 +23,6 @@ spec:
     automated: 
       prune: true
       selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
