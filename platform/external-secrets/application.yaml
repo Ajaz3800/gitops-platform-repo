@@ -11,15 +11,6 @@ spec:
     targetRevision: "2.4.1"
     helm:
       releaseName: external-secrets
-      parameters:
-        - name: installCRDs
-          value: "true"
-        - name: rbac.create
-          value: "true"
-        - name: certController.rbac.create
-          value: "true"
-        - name: webhook.rbac.create
-          value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: external-secrets
@@ -28,6 +19,5 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
-      - RespectIgnoreDifferences=true
+    - CreateNamespace=true
+    - ServerSideApply=true
