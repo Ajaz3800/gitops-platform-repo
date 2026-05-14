@@ -9,4 +9,4 @@ resources:
   - falco/application.yaml
   - kyverno/application.yaml
   - monitoring/application.yaml
-  - metrivs-server/application.yaml
+  - metrics-server/application.yaml
