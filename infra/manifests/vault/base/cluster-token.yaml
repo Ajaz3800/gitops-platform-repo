@@ -5,4 +5,5 @@ metadata:
   namespace: vault
   annotations:
     kubernetes.io/service-account.name: vault-auth
+    argocd.argoproj.io/sync-wave: "1"
 type: kubernetes.io/service-account-token
