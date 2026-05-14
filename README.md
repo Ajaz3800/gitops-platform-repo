@@ -17,6 +17,13 @@ It covers **API security, runtime protection, policy enforcement, and observabil
 
 ---
 
+## 📊 ArgoCD GitOps Dashboard
+
+![ArgoCD GitOps Dashboard](assets/demo-01.gif)
+
+---
+
+
 # 🧱 Architecture Overview
 
 ```
@@ -33,17 +40,22 @@ Kubernetes Cluster
 │   └── Network Policies
 │
 ├── 🛡️ Security Layer
-│   ├── Kyverno (Policy Engine)
+│   ├── Kyverno (Policy Engine - Admission Control)
 │   ├── Falco (Runtime Security)
 │   └── Vault (Secrets Management)
+│
+├── 🚀 Progressive Delivery
+│   ├── Argo Rollouts (Canary & Blue-Green Deployments)
+│   └── Traffic Management (Ingress / Service Mesh compatible)
 │
 ├── 📊 Observability
 │   ├── Prometheus
 │   ├── Grafana
 │   └── Alertmanager
 │
-└── 🚀 GitOps
-    └── ArgoCD (App of Apps)
+└── ⚙️ GitOps & Deployment
+    ├── ArgoCD (App of Apps)
+    └── Kustomize (Declarative Configuration Management)
 ```
 
 ---
