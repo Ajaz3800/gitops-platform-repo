@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - clustersecretstore.yaml
   - secretstore-dev.yaml
-  - vault-auth-cluster-sa.yaml
-  - vault-auth-cluster-token.yaml
-  - vault-auth-secret-sa.yaml
-  - vault-auth-secret-token.yaml
+  - cluster-sa.yaml
+  - cluster-token.yaml
+  - secret-sa.yaml
+  - secret-token.yaml
