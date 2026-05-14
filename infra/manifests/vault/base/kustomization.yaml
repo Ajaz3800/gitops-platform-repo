@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - clustersecretstore.yaml
+  - secretstore-dev.yaml
+  - vault-auth-cluster-sa.yaml
+  - vault-auth-cluster-token.yaml
+  - vault-auth-secret-sa.yaml
+  - vault-auth-secret-token.yaml
