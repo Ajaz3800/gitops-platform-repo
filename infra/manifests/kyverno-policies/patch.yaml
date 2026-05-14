@@ -15,3 +15,4 @@
             - monitoring
             - argocd
             - calico-system
+            - tigera-operator
