@@ -1,0 +1,29 @@
+# platform/falco/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: falco
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/background
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: k8s-security
+  source:
+    repoURL: https://falcosecurity.github.io/charts
+    chart: falco
+    targetRevision: 8.0.2
+    helm:
+      values: |
+        falcosidekick:
+          enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: falco
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
