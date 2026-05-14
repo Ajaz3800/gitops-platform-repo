@@ -4,7 +4,7 @@ metadata:
   name: verify-keyless-signatures
 
 spec:
-  validationFailureAction: Audit
+  validationFailureAction: Enforce
   background: false
 
   rules:
@@ -21,11 +21,11 @@ spec:
 
       verifyImages:
         - imageReferences:
-            - "harbor.example.com/*"
+            - "192.168.56.11:30080/*"
 
           attestors:
             - entries:
                 - keyless:
-                    subject: "https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO/.github/workflows/YOUR_WORKFLOW.yml@refs/heads/main"
+                    subject: "https://github.com/Ajaz3800/devsecops-app/.github/workflows/ci.yml@refs/heads/main"
 
                     issuer: "https://token.actions.githubusercontent.com"
