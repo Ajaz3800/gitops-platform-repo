@@ -21,6 +21,8 @@ spec:
       kind: ClusterSecretStore
     - group: ""
       kind: Namespace
+    - group: kyverno.io
+      kind: ClusterPolicy
   namespaceResourceWhitelist:
     - group: ""
       kind: Secret
