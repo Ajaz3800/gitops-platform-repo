@@ -5,4 +5,3 @@ metadata:
   namespace: vault
   annotations:
     argocd.argoproj.io/sync-wave: "0"
-automountServiceAccountToken: true
