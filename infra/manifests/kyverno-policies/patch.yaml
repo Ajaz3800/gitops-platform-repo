@@ -1,0 +1,17 @@
+- op: add
+  path: /spec/rules/0/exclude
+  value:
+    any:
+      - resources:
+          namespaces:
+            - kube-system
+            - kyverno
+            - harbor-dev
+            - argo-rollouts
+            - cert-manager
+            - external-secrets
+            - falco
+            - ingress-nginx
+            - monitoring
+            - argocd
+            - calico-system

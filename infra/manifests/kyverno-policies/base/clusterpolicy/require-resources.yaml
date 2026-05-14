@@ -1,0 +1,44 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resources
+spec:
+  validationFailureAction: Audit
+
+  rules:
+    - name: validate-resources
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+
+      exclude:
+      any:
+        - resources:
+            namespaces:
+              - kube-system
+              - kyverno
+              - harbor-dev
+              - argo-rollouts
+              - cert-manager
+              - external-secrets
+              - falco
+              - ingress-nginx
+              - monitoring
+              - argocd
+              - calico-system
+              
+      validate:
+        message: "CPU and memory requests/limits are required."
+
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  requests:
+                    memory: "?*"
+                    cpu: "?*"
+                  limits:
+                    memory: "?*"
+                    cpu: "?*"

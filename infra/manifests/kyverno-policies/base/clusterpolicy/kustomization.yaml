@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - allowed-registries.yaml
+  - disallow-hostpath.yaml
+  - disallow-latest-tag.yaml
+  - disallow-privilege-escalation.yaml
+  - disallow-privileged-containers.yaml
+  - require-non-root.yaml
+  - require-probes.yaml
+  - require-resources.yaml
+  - verify-keyless-signatures.yaml

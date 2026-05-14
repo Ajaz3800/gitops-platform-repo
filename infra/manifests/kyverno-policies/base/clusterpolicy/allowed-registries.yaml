@@ -1,0 +1,23 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: allowed-registries
+spec:
+  validationFailureAction: Enforce
+  background: false
+
+  rules:
+    - name: validate-registries
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+
+      validate:
+        message: "Only approved registries are allowed."
+
+        pattern:
+          spec:
+            containers:
+              - image: "192.168.56.11:30080/*"
