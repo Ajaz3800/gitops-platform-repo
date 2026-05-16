@@ -21,7 +21,7 @@ spec:
 
       verifyImages:
         - imageReferences:
-            - "192.168.56.11:30080/*"
+            - "harbor.internal:30080/*"
 
           attestors:
             - entries:
