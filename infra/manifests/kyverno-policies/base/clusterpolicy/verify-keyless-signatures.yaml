@@ -27,6 +27,6 @@ spec:
             - entries:
                 - keyless:
                     issuer: "https://token.actions.githubusercontent.com"
-                    subject: "https://github.com/Ajaz3800/devsecops-app/.github/workflows/ci.yml@refs/heads/main"
+                    subject: "https://github.com/Ajaz3800/devsecops-app/.github/workflows/ci-build.yaml@refs/heads/main"
                     rekor:
                       url: https://rekor.sigstore.dev
