@@ -17,10 +17,12 @@ spec:
                 - dev
                 - prod
 
+
       validate:
         message: "Only approved registries are allowed."
-
-        pattern:
-          spec:
-            containers:
-              - image: "harbor.internal:30080/*"
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].image }}"
+                operator: NotStartsWith
+                value: "harbor.internal:30080/"
