@@ -15,8 +15,10 @@ spec:
                 - Pod
 
       validate:
-        message: "Using latest tag is not allowed."
-        pattern:
-          spec:
-            containers:
-              - image: "!*:latest"
+        message: "Using 'latest' tag is not allowed."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].image }}"
+                operator: Matches
+                value: "*:latest"
