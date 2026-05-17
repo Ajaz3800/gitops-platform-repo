@@ -16,8 +16,13 @@ spec:
 
       validate:
         message: "Containers must run as non-root."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].securityContext.runAsUser }}"
+                operator: Equals
+                value: 0
 
-        pattern:
-          spec:
-            securityContext:
-              runAsNonRoot: true
+              - key: "{{ request.object.spec.securityContext.runAsNonRoot }}"
+                operator: Equals
+                value: false
