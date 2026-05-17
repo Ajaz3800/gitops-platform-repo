@@ -14,11 +14,13 @@ spec:
                 - Pod
       validate:
         message: "Liveness and readiness probes are required."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].livenessProbe }}"
+                operator: Equals
+                value: null
 
-        pattern:
-          spec:
-            containers:
-              - livenessProbe:
-                  "*": "*"
-                readinessProbe:
-                  "*": "*"
+              - key: "{{ request.object.spec.containers[].readinessProbe }}"
+                operator: Equals
+                value: null
