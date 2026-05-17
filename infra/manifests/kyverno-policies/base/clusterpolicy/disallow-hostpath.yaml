@@ -18,7 +18,8 @@ spec:
       validate:
         message: "hostPath volumes are not allowed."
 
-        pattern:
-          spec:
-            =(volumes):
-              - X(hostPath): "null"
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.volumes[].hostPath }}"
+                operator: Exists
