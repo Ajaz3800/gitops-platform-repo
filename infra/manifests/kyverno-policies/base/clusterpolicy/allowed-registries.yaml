@@ -23,4 +23,4 @@ spec:
         pattern:
           spec:
             containers:
-              - image: "harbor.internal:30080/*"
+              - image: "harbor.internal:30443/*"
