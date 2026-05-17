@@ -13,6 +13,9 @@ spec:
           - resources:
               kinds:
                 - Pod
+              operations:
+                - CREATE
+                - UPDATE      
 
       validate:
         message: "Privilege escalation is not allowed."
@@ -20,9 +23,11 @@ spec:
           conditions:
             any:
               - key: "{{ request.object.spec.containers[].securityContext.allowPrivilegeEscalation }}"
-                operator: Equals
-                value: true
+                operator: AnyIn
+                value:
+                  - true
 
-              - key: "{{ request.object.spec.securityContext.allowPrivilegeEscalation }}"
-                operator: Equals
-                value: true
+              - key: "{{ request.object.spec.initContainers[].securityContext.allowPrivilegeEscalation }}"
+                operator: AnyIn
+                value:
+                  - true
