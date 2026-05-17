@@ -13,10 +13,6 @@ spec:
     repoURL: https://kyverno.github.io/kyverno
     chart: kyverno
     targetRevision: 3.8.0
-    helm:
-      valuesObject:
-        registryClient:
-          allowInsecure: true
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
@@ -36,3 +32,21 @@ spec:
         - /metadata/managedFields
         - /metadata/resourceVersion
         - /metadata/generation
+    - group: apps
+      kind: Deployment
+      name: kyverno-admission-controller
+      namespace: kyverno
+      jqPathExpressions:
+        - .spec.template.spec.containers[].args
+    - group: apps
+      kind: Deployment
+      name: kyverno-background-controller
+      namespace: kyverno
+      jqPathExpressions:
+        - .spec.template.spec.containers[].args
+    - group: apps
+      kind: Deployment
+      name: kyverno-reports-controller
+      namespace: kyverno
+      jqPathExpressions:
+        - .spec.template.spec.containers[].args
