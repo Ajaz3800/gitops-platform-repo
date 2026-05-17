@@ -14,13 +14,9 @@ spec:
     chart: kyverno
     targetRevision: 3.8.0
     helm:
-      parameters:
-        - name: admissionController.container.extraArgs.allowInsecureRegistry
-          value: "true"
-        - name: backgroundController.container.extraArgs.allowInsecureRegistry
-          value: "true"
-        - name: reportsController.container.extraArgs.allowInsecureRegistry
-          value: "true"
+      values: |
+        registryClient:
+          allowInsecure: true
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
