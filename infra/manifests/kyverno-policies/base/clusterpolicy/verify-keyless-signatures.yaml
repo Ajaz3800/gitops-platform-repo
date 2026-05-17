@@ -22,6 +22,10 @@ spec:
       verifyImages:
         - imageReferences:
             - "harbor.internal:30080/*"
+          repository: "harbor.internal:30080"
+          mutateDigest: false
+          useCache: false
+          insecureRegistry: true 
 
           attestors:
             - entries:
