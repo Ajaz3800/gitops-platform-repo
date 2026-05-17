@@ -16,9 +16,7 @@ spec:
 
       validate:
         message: "Using 'latest' tag is not allowed."
-        deny:
-          conditions:
-            any:
-              - key: "{{ request.object.spec.containers[].image }}"
-                operator: Matches
-                value: "*:latest"
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"
