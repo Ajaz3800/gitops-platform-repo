@@ -12,33 +12,24 @@ spec:
           - resources:
               kinds:
                 - Pod
-
-      exclude:
-      any:
-        - resources:
-            namespaces:
-              - kube-system
-              - kyverno
-              - harbor-dev
-              - argo-rollouts
-              - cert-manager
-              - external-secrets
-              - falco
-              - ingress-nginx
-              - monitoring
-              - argocd
-              - calico-system
               
       validate:
         message: "CPU and memory requests/limits are required."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].resources.requests.cpu }}"
+                operator: Equals
+                value: null
 
-        pattern:
-          spec:
-            containers:
-              - resources:
-                  requests:
-                    memory: "?*"
-                    cpu: "?*"
-                  limits:
-                    memory: "?*"
-                    cpu: "?*"
+              - key: "{{ request.object.spec.containers[].resources.requests.memory }}"
+                operator: Equals
+                value: null
+
+              - key: "{{ request.object.spec.containers[].resources.limits.cpu }}"
+                operator: Equals
+                value: null
+
+              - key: "{{ request.object.spec.containers[].resources.limits.memory }}"
+                operator: Equals
+                value: null
