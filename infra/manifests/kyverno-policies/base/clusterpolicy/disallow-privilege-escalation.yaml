@@ -16,9 +16,13 @@ spec:
 
       validate:
         message: "Privilege escalation is not allowed."
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.object.spec.containers[].securityContext.allowPrivilegeEscalation }}"
+                operator: Equals
+                value: true
 
-        pattern:
-          spec:
-            containers:
-              - securityContext:
-                  allowPrivilegeEscalation: false
+              - key: "{{ request.object.spec.securityContext.allowPrivilegeEscalation }}"
+                operator: Equals
+                value: true
