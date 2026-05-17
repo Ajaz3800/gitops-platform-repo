@@ -25,7 +25,9 @@ spec:
           mutateDigest: false
           useCache: false
           insecureRegistry: true 
-
+          secretRefs:
+            - name: harbor-pull-secret
+              namespace: kyverno
           attestors:
             - entries:
                 - keyless:
