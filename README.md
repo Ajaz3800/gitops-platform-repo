@@ -1,292 +1,309 @@
-# 🔐 Kubernetes Security Hardening Guide (Production Ready)
+# Enterprise DevSecOps GitOps Platform on Kubernetes
 
-This repository documents a **practical, production-grade Kubernetes security setup** using GitOps principles.
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![ArgoCD](https://img.shields.io/badge/ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)
+![Kyverno](https://img.shields.io/badge/Kyverno-326CE5?style=for-the-badge)
+![Falco](https://img.shields.io/badge/Falco-00AEEF?style=for-the-badge)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+![Harbor](https://img.shields.io/badge/Harbor-60B932?style=for-the-badge)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-It covers **API security, runtime protection, policy enforcement, and observability**.
-
----
-
-# 📌 Objectives
-
-* Secure Kubernetes API access
-* Enforce least privilege (RBAC)
-* Prevent misconfigurations (policy engine)
-* Detect runtime threats
-* Enable monitoring and auditing
-* Follow GitOps best practices
+Enterprise-grade DevSecOps platform built on Kubernetes using GitOps, policy-as-code, supply chain security, progressive delivery, observability, and runtime threat detection.
 
 ---
 
-## 📊 ArgoCD GitOps Dashboard
+# Platform Overview
+
+This project demonstrates a production-style Kubernetes DevSecOps platform running on a multi-node kubeadm cluster provisioned with Vagrant.
+
+The platform follows GitOps principles using ArgoCD and integrates multiple security layers across the software delivery lifecycle including:
+
+- Supply chain security
+- Policy enforcement
+- Runtime security
+- Progressive delivery
+- Secret management
+- Observability
+- Automated GitOps deployment
+
+---
+
+# Architecture Diagram
+
+![Architecture](assets/architecture.png)
+
+---
+
+# Key Features
+
+## GitOps Deployment
+- ArgoCD-based GitOps workflow
+- Multi-environment deployment strategy
+- Automated sync and reconciliation
+- Declarative Kubernetes infrastructure
+
+## Kubernetes Security
+- Kyverno policy enforcement
+- Image signature verification
+- Resource validation policies
+- Non-root enforcement
+- Privileged container blocking
+- Latest tag prevention
+- HostPath restriction policies
+
+## Runtime Security
+- Falco runtime threat detection
+- Kubernetes audit monitoring
+- Container activity monitoring
+
+## Supply Chain Security
+- Trivy vulnerability scanning
+- SBOM generation
+- Cosign image signing
+- Harbor registry integration
+- Signed container image verification
+
+## Progressive Delivery
+- Argo Rollouts canary deployments
+- Controlled rollout strategy
+- Automated rollback support
+
+## Secrets Management
+- External Secrets Operator integration
+- Vault-based secret management
+- Centralized secret storage
+
+## Observability Stack
+- Prometheus monitoring
+- Grafana dashboards
+- Kyverno metrics integration
+- Kubernetes cluster monitoring
+
+---
+
+# Technology Stack
+
+| Category | Tools |
+|---|---|
+| Container Orchestration | Kubernetes (kubeadm) |
+| GitOps | ArgoCD |
+| Progressive Delivery | Argo Rollouts |
+| Policy Enforcement | Kyverno |
+| Runtime Security | Falco |
+| Secrets Management | Vault + External Secrets Operator |
+| Monitoring | Prometheus + Grafana |
+| Container Registry | Harbor |
+| CI/CD | GitHub Actions |
+| Security Scanning | Trivy |
+| Image Signing | Cosign |
+| Code Quality | SonarCloud |
+| Infrastructure | Vagrant + VirtualBox |
+
+---
+
+# Repository Structure
+
+```bash
+.
+├── assets
+│   ├── architecture.png
+│   ├── demo-01.gif
+│   └── demo-02.gif
+├── bootstrap
+│   ├── infra-root.yaml
+│   └── platform-app.yaml
+├── infra
+│   ├── applications
+│   │   ├── kustomization.yaml
+│   │   ├── kyverno-policies-app
+│   │   │   ├── application.yaml
+│   │   │   └── kustomization.yaml
+│   │   ├── network-policies-app
+│   │   ├── rbac-app
+│   │   │   ├── application.yaml
+│   │   │   └── kustomization.yaml
+│   │   └── vault-app
+│   │       ├── application.yaml
+│   │       └── kustomization.yaml
+│   ├── kustomization.yaml
+│   ├── manifests
+│   │   ├── kyverno-policies
+│   │   │   ├── base
+│   │   │   │   ├── clusterpolicy
+│   │   │   │   │   ├── allowed-registries.yaml
+│   │   │   │   │   ├── disallow-hostpath.yaml
+│   │   │   │   │   ├── disallow-latest-tag.yaml
+│   │   │   │   │   ├── disallow-privileged-containers.yaml
+│   │   │   │   │   ├── disallow-privilege-escalation.yaml
+│   │   │   │   │   ├── kustomization.yaml
+│   │   │   │   │   ├── require-non-root.yaml
+│   │   │   │   │   ├── require-probes.yaml
+│   │   │   │   │   ├── require-resources.yaml
+│   │   │   │   │   └── verify-keyless-signatures.yaml
+│   │   │   │   └── kustomization.yaml
+│   │   │   ├── kustomization.yaml
+│   │   │   └── patch.yaml
+│   │   ├── network-policies
+│   │   ├── rbac
+│   │   │   ├── base
+│   │   │   │   ├── external-secrets-rbac.yaml
+│   │   │   │   ├── falco-rbac.yaml
+│   │   │   │   ├── kustomization.yaml
+│   │   │   │   ├── kyverno-rbac.yaml
+│   │   │   │   └── monitoring-rbac.yaml
+│   │   │   └── kustomization.yaml
+│   │   └── vault
+│   │       ├── base
+│   │       │   ├── cluster-role-binding.yaml
+│   │       │   ├── cluster-sa.yaml
+│   │       │   ├── clustersecretstore.yaml
+│   │       │   ├── cluster-token.yaml
+│   │       │   ├── kustomization.yaml
+│   │       │   ├── secret-crb.yaml
+│   │       │   ├── secret-sa.yaml
+│   │       │   ├── secretstore-dev.yaml
+│   │       │   └── secret-token.yaml
+│   │       └── kustomization.yaml
+│   └── projects
+│       ├── k8s-infra-project.yaml
+│       └── kustomization.yaml
+├── platform
+│   ├── applications
+│   │   ├── argo-rollouts
+│   │   │   └── application.yaml
+│   │   ├── cert-manager
+│   │   │   └── application.yaml
+│   │   ├── external-secrets
+│   │   │   └── application.yaml
+│   │   ├── falco
+│   │   │   └── application.yaml
+│   │   ├── ingress-nginx
+│   │   │   └── application.yaml
+│   │   ├── kustomization.yaml
+│   │   ├── kyverno
+│   │   │   └── application.yaml
+│   │   ├── metrics-server
+│   │   │   └── application.yaml
+│   │   └── monitoring
+│   │       └── application.yaml
+│   ├── kustomization.yaml
+│   └── projects
+│       ├── k8s-observability.yaml
+│       ├── k8s-platform.yaml
+│       ├── k8s-security.yaml
+│       └── kustomization.yaml
+└── README.md
+```
+
+---
+
+# Platform Components
+
+## Platform Services
+
+| Component | Purpose |
+|---|---|
+| ArgoCD | GitOps continuous delivery |
+| Kyverno | Kubernetes policy engine |
+| Falco | Runtime threat detection |
+| Harbor | Secure image registry |
+| External Secrets Operator | Secret synchronization |
+| Vault | Centralized secret management |
+| Argo Rollouts | Progressive delivery |
+| Metrics Server | Kubernetes resource metrics |
+| Prometheus | Metrics collection |
+| Grafana | Visualization dashboards |
+
+---
+
+# Security Policies
+
+The platform enforces multiple Kyverno security policies including:
+
+- Allowed container registries
+- Require resource requests and limits
+- Require liveness/readiness probes
+- Prevent privileged containers
+- Prevent privilege escalation
+- Require non-root containers
+- Block latest image tags
+- Block hostPath volumes
+- Verify signed container images
+
+---
+
+# Kyverno Policy Demo
+
+![Kyverno Demo](assets/demo-02.gif)
+
+---
+
+## ArgoCD GitOps Dashboard
 
 ![ArgoCD GitOps Dashboard](assets/demo-01.gif)
 
 ---
 
+# Monitoring Stack
 
-# 🧱 Architecture Overview
+Grafana dashboards integrated with Prometheus and Kyverno metrics.
 
-```
-Kubernetes Cluster
-│
-├── 🔐 API Security
-│   ├── Disable Anonymous Access
-│   ├── RBAC (Role-Based Access Control)
-│   └── Audit Logging
-│
-├── 🌐 Networking
-│   ├── Ingress Controller (NGINX)
-│   ├── TLS (cert-manager)
-│   └── Network Policies
-│
-├── 🛡️ Security Layer
-│   ├── Kyverno (Policy Engine - Admission Control)
-│   ├── Falco (Runtime Security)
-│   └── Vault (Secrets Management)
-│
-├── 🚀 Progressive Delivery
-│   ├── Argo Rollouts (Canary & Blue-Green Deployments)
-│   └── Traffic Management (Ingress / Service Mesh compatible)
-│
-├── 📊 Observability
-│   ├── Prometheus
-│   ├── Grafana
-│   └── Alertmanager
-│
-└── ⚙️ GitOps & Deployment
-    ├── ArgoCD (App of Apps)
-    └── Kustomize (Declarative Configuration Management)
-```
+![Monitoring](assets/grafana-dashboards-kyverno.gif)
 
 ---
 
-# 🔐 1. API Server Security
+# Deployment Environment
 
-## Disable Anonymous Access
+## Kubernetes Cluster
+- kubeadm-based Kubernetes cluster
+- Multi-node environment
+- Hosted locally using Vagrant and VirtualBox
 
-Edit API server manifest:
-
-```bash
-sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
-```
-
-Add:
-
-```yaml
-- --anonymous-auth=false
-```
-
-### ✅ Verify
-
-```bash
-curl -k https://<API_SERVER>:6443
-```
-
-Expected:
-
-```
-401 Unauthorized
-```
+## CI/CD Environment
+- GitHub Actions
+- Self-hosted runners
 
 ---
 
-## Enable RBAC (Mandatory)
+# Related Repositories
 
-Ensure:
+## Application Source Repository
+https://github.com/Ajaz3800/devsecops-app
 
-```yaml
---authorization-mode=Node,RBAC
-```
-
----
-
-# 🔑 2. RBAC (Least Privilege)
-
-### Example Role
-
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: dev
-  name: pod-reader
-rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
+## GitOps Deployment Repository
+https://github.com/Ajaz3800/devsecops-gitops
 
 ---
 
-# 🌐 3. Network Security
+# Future Improvements
 
-## Default Deny Policy
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default-deny
-  namespace: default
-spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
-  - Egress
-```
+- Falco alert forwarding integration
+- Slack/Discord alerting
+- Service mesh integration
+- Multi-cluster GitOps management
+- OPA Gatekeeper comparison
+- Advanced SLO monitoring
+- Automated incident response
 
 ---
 
-# 🔒 4. TLS & Ingress
+# Learning Outcomes
 
-## Components
+This project helped strengthen practical knowledge in:
 
-* ingress-nginx
-* cert-manager
-
-### Benefits
-
-* HTTPS everywhere
-* Automatic certificate renewal
-
----
-
-# 🛡️ 5. Policy Enforcement (Kyverno)
-
-## Install via ArgoCD (Helm)
-
-Kyverno enforces rules like:
-
-* No privileged containers
-* Require resource limits
-* Enforce labels
+- Kubernetes Administration
+- DevSecOps
+- GitOps Workflows
+- Policy-as-Code
+- Supply Chain Security
+- Runtime Security
+- CI/CD Automation
+- Kubernetes Observability
+- Progressive Delivery
 
 ---
 
-## Example Policy
-
-```yaml
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
-metadata:
-  name: disallow-privileged
-spec:
-  validationFailureAction: enforce
-  rules:
-    - name: block-privileged
-      match:
-        resources:
-          kinds:
-            - Pod
-      validate:
-        message: "Privileged containers are not allowed"
-        pattern:
-          spec:
-            containers:
-              - securityContext:
-                  privileged: false
-```
-
----
-
-# 🔍 6. Runtime Security (Falco)
-
-## Detects:
-
-* Reverse shells
-* Suspicious processes
-* Container escapes
-
-## Install via Helm
-
-```bash
-helm repo add falcosecurity https://falcosecurity.github.io/charts
-```
-
----
-
-# 📊 7. Monitoring (Prometheus + Grafana)
-
-## Stack
-
-* kube-prometheus-stack
-* Grafana dashboards
-* Alertmanager
-
----
-
-# 🔐 8. Secrets Management
-
-## Vault Integration
-
-* Store secrets securely
-* Avoid hardcoding secrets in manifests
-
----
-
-# 🔁 9. GitOps (ArgoCD)
-
-## Pattern Used
-
-* App of Apps (Platform)
-* ApplicationSet (Apps - later)
-
----
-
-## Benefits
-
-* Declarative deployments
-* Automatic sync
-* Version control
-
----
-
-# 🔍 10. Audit Logging (Recommended)
-
-Enable in API server:
-
-```yaml
---audit-log-path=/var/log/kubernetes/audit.log
-```
-
----
-
-# 🚨 11. Image Security (Next Step)
-
-* Use Trivy for scanning
-* Enforce signed images (Cosign + Kyverno)
-
----
-
-# 📋 Production Checklist
-
-| Area                      | Status |
-| ------------------------- | ------ |
-| Anonymous Access Disabled | ✅      |
-| RBAC Enabled              | ✅      |
-| Network Policies          | ✅      |
-| TLS Enabled               | ✅      |
-| Kyverno Installed         | ✅      |
-| Falco Running             | ✅      |
-| Monitoring Enabled        | ✅      |
-| GitOps Setup              | ✅      |
-
----
-
-# 🚀 Future Improvements
-
-* External Secrets Operator (ESO)
-* Loki for logging
-* Multi-cluster GitOps
-* Zero Trust networking (Cilium)
-
----
-
-# 🧠 Key Takeaway
-
-> Kubernetes security is not a single tool — it's a layered approach combining **access control, policy enforcement, runtime monitoring, and GitOps discipline**.
-
----
 
 ## ⭐ Support
 
