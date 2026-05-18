@@ -8,3 +8,5 @@ resources:
   - cluster-token.yaml
   - secret-sa.yaml
   - secret-token.yaml
+  - cluster-role-binding.yaml
+  - secret-crb.yaml
